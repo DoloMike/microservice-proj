@@ -7,45 +7,46 @@ const customerModel = require('../models/customerModel.js');
  */
 module.exports = {
 	/**
-     * customerController.list()
-     */
-	list(req, res) {
-		customerModel.find((err, customers) => {
-			if (err) {
-				return res.status(500).json({
-					message: 'Error when getting customer.',
-					error: err
-				});
-			}
+  * customerController.list()
+  */
+	async list(req, res) {
+		try {
+			let customers = await customerModel.find({});
 			return res.json(customers);
-		});
+		} catch (err) {
+			return res.status(500).json({
+				message: 'Error when getting customer.',
+				error: err
+			});
+		}
 	},
 
 	/**
-     * customerController.show()
-     */
-	show(req, res) {
+  * customerController.show()
+  */
+	async show(req, res) {
 		const id = req.params.id;
-		customerModel.findOne({ _id: id }, (err, customer) => {
-			if (err) {
-				return res.status(500).json({
-					message: 'Error when getting customer.',
-					error: err
-				});
-			}
-			if (!customer) {
+
+		try {
+			let foundCustomer = await customerModel.findOne({ _id: id });
+			if (!foundCustomer) {
 				return res.status(404).json({
 					message: 'No such customer'
 				});
 			}
-			return res.json(customer);
-		});
+			return res.json(foundCustomer);
+		} catch (err) {
+			return res.status(500).json({
+				message: 'Error when getting customer.',
+				error: err
+			});
+		}
 	},
 
 	/**
-     * customerController.create()
-     */
-	create(req, res) {
+  * customerController.create()
+  */
+	async create(req, res) {
 		const customer = new customerModel({
 			first: req.body.first,
 			last: req.body.last,
@@ -58,29 +59,26 @@ module.exports = {
 			email: req.body.email
 		});
 
-		customer.save((err, customer) => {
-			if (err) {
-				return res.status(500).json({
-					message: 'Error when creating customer',
-					error: err
-				});
-			}
-			return res.status(201).json(customer);
-		});
+		try {
+			let newCustomer = await customer.save();
+			return res.status(201).json(newCustomer);
+		} catch (err) {
+			return res.status(500).json({
+				message: 'Error when creating customer',
+				error: err
+			});
+		}
 	},
 
 	/**
-     * customerController.update()
-     */
-	update(req, res) {
+  * customerController.update()
+  */
+	async update(req, res) {
 		const id = req.params.id;
-		customerModel.findOne({ _id: id }, (err, customer) => {
-			if (err) {
-				return res.status(500).json({
-					message: 'Error when getting customer',
-					error: err
-				});
-			}
+		let customer;
+
+		try {
+			customer = await customerModel.findOne({ _id: id });
 			if (!customer) {
 				return res.status(404).json({
 					message: 'No such customer'
@@ -96,33 +94,38 @@ module.exports = {
 			customer.date_of_birth = req.body.date_of_birth ? req.body.date_of_birth : customer.date_of_birth;
 			customer.ssn = req.body.ssn ? req.body.ssn : customer.ssn;
 			customer.email = req.body.email ? req.body.email : customer.email;
-
-			customer.save((err, customer) => {
-				if (err) {
-					return res.status(500).json({
-						message: 'Error when updating customer.',
-						error: err
-					});
-				}
-
-				return res.json(customer);
+		} catch (err) {
+			return res.status(500).json({
+				message: 'Error when getting customer',
+				error: err
 			});
-		});
+		}
+
+		try {
+			let updatedCustomer = await customer.save();
+			return res.json(updatedCustomer);
+		} catch (err) {
+			return res.status(500).json({
+				message: 'Error when updating customer.',
+				error: err
+			});
+		}
 	},
 
 	/**
-     * customerController.remove()
-     */
-	remove(req, res) {
+  * customerController.remove()
+  */
+	async remove(req, res) {
 		const id = req.params.id;
-		customerModel.findByIdAndRemove(id, (err, customer) => {
-			if (err) {
-				return res.status(500).json({
-					message: 'Error when deleting the customer.',
-					error: err
-				});
-			}
-			return res.status(204).json();
-		});
+
+		try {
+			let deletedCustomer = await customerModel.findByIdAndRemove(id);
+			return res.status(204).json(deletedCustomer);
+		} catch (err) {
+			return res.status(500).json({
+				message: 'Error when deleting the customer.',
+				error: err
+			});
+		}
 	}
 };
