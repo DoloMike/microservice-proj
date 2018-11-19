@@ -1,0 +1,15 @@
+<div
+    id="loan-table"
+    *ngIf="loaded"
+>
+    <p class="text-danger">
+        You clicked on:
+        <strong>{{ message }}</strong>
+    </p>
+    <br>
+    <table
+        datatable
+        [dtOptions]="dtOptions"
+        class="row-border hover"
+    ></table>
+</div>
