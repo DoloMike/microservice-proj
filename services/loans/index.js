@@ -18,7 +18,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 app.use(bodyParser.json());
 app.use('/', routes);
-app.listen(process.env.port, () => {
+app.listen(process.env.PORT || 4001, () => {
 	console.log(`listening at port ${process.env.port}`);
 });
 
