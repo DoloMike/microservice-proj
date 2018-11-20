@@ -1,0 +1,27 @@
+<div
+    id="customer-table"
+    *ngIf="loaded"
+>
+    <div class="row">
+        <div class="col">
+            <h2>Customers</h2>
+        </div>
+        <div class="col">
+            <button
+                type="button"
+                class="btn btn-primary"
+                (click)="addNew()"
+            >
+                Add New Customer
+            </button>
+
+        </div>
+    </div>
+
+    <br>
+    <table
+        datatable
+        [dtOptions]="dtOptions"
+        class="row-border hover"
+    ></table>
+</div>

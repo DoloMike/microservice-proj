@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const loanSchema = new Schema({
-	customerId: {
-		type: Schema.Types.ObjectId,
-		ref: 'customer'
-	},
+	customerId: String,
 	amount: Number,
 	balance: Number,
 	term: Number,

@@ -48,15 +48,14 @@ module.exports = {
   */
 	async create(req, res) {
 		const loan = new loanModel({
-			first: req.body.first,
-			last: req.body.last,
-			street: req.body.street,
-			city: req.body.city,
-			state: req.body.state,
-			zip: req.body.zip,
-			date_of_birth: req.body.date_of_birth,
-			ssn: req.body.ssn,
-			email: req.body.email
+			customerId: req.body.customerId,
+			amount: req.body.amount,
+			balance: req.body.balance,
+			term: req.body.term,
+			purpose: req.body.purpose,
+			rate: req.body.rate,
+			maturityDate: req.body.maturityDate,
+			orginationDate: req.body.orginationDate
 		});
 
 		try {
@@ -85,15 +84,14 @@ module.exports = {
 				});
 			}
 
-			loan.first = req.body.first ? req.body.first : loan.first;
-			loan.last = req.body.last ? req.body.last : loan.last;
-			loan.street = req.body.street ? req.body.street : loan.street;
-			loan.city = req.body.city ? req.body.city : loan.city;
-			loan.state = req.body.state ? req.body.state : loan.state;
-			loan.zip = req.body.zip ? req.body.zip : loan.zip;
-			loan.date_of_birth = req.body.date_of_birth ? req.body.date_of_birth : loan.date_of_birth;
-			loan.ssn = req.body.ssn ? req.body.ssn : loan.ssn;
-			loan.email = req.body.email ? req.body.email : loan.email;
+			loan.customerId = req.body.customerId ? req.body.customerId : loan.customerId;
+			loan.amount = req.body.amount ? req.body.amount : loan.amount;
+			loan.balance = req.body.balance ? req.body.balance : loan.balance;
+			loan.term = req.body.term ? req.body.term : loan.term;
+			loan.purpose = req.body.purpose ? req.body.purpose : loan.purpose;
+			loan.rate = req.body.rate ? req.body.rate : loan.rate;
+			loan.maturityDate = req.body.maturityDate ? req.body.maturityDate : loan.maturityDate;
+			loan.orginationDate = req.body.orginationDate ? req.body.orginationDate : loan.orginationDate;
 		} catch (err) {
 			return res.status(500).json({
 				message: 'Error when getting loan',
@@ -120,7 +118,7 @@ module.exports = {
 
 		try {
 			let deletedloan = await loanModel.findByIdAndRemove(id);
-			return res.status(204).json(deletedloan);
+			return res.json(deletedloan);
 		} catch (err) {
 			return res.status(500).json({
 				message: 'Error when deleting the loan.',

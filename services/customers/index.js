@@ -8,6 +8,10 @@ const routes = require('./routes/customerRoutes');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+// allow CORS
+const cors = require('cors');
+app.use(cors());
+
 // initiate mongodb connection and add event listeners
 mongoose.connect(connectionStr, { useNewUrlParser: true });
 const db = mongoose.connection;

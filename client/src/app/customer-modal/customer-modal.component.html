@@ -1,0 +1,223 @@
+<app-modal title="Customer: {{customerId | uppercase}}">
+    <div class="row">
+        <div class="col">
+            <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic example"
+            >
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="toggleEdit()"
+                    [disabled]="canEdit"
+                    [hidden]="canEdit"
+                >
+                    Edit
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="first">First:</label>
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="first"
+                    placeholder="First"
+                    [disabled]="!canEdit"
+                    [(ngModel)]="customer.first"
+                >
+            </div>
+        </div>
+        <div class="col">
+            <label for="last">Last:</label>
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="last"
+                    placeholder="Last"
+                    [disabled]="!canEdit"
+                    [(ngModel)]="customer.last"
+                >
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <label for="street">Street:</label>
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="street"
+                    placeholder="Street"
+                    [disabled]="!canEdit"
+                    [(ngModel)]="customer.street"
+                >
+            </div>
+        </div>
+        <div class="col-4">
+            <label for="zip">Zip:</label>
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="zip"
+                    placeholder="Zip"
+                    [disabled]="!canEdit"
+                    [(ngModel)]="customer.zip"
+                >
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <label for="city">City:</label>
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    placeholder="City"
+                    [disabled]="!canEdit"
+                    [(ngModel)]="customer.city"
+                >
+            </div>
+        </div>
+        <div class="col-4">
+            <label for="stateDropDown">State:</label>
+            <div class="input-group mb-3">
+                <div
+                    ngbDropdown
+                    class="d-inline-block"
+                >
+                    <button
+                        class="btn btn-outline-primary"
+                        id="stateDropDown"
+                        ngbDropdownToggle
+                        [disabled]="!canEdit"
+                    >
+                        {{selectedState}}
+                    </button>
+                    <div
+                        ngbDropdownMenu
+                        aria-labelledby="stateDropDown"
+                    >
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="dropDownSearch"
+                            placeholder="Search..."
+                            (click)="$event.stopPropagation()"
+                            (keyup)="filterStates($event)"
+                        >
+                        <button
+                            *ngFor="let s of filteredStates"
+                            class="dropdown-item"
+                            (click)="selectState(s)"
+                        >
+                            {{s}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="date_of_birth">Date Of Birth:</label>
+                <div class="input-group">
+                    <input
+                        id="date_of_birth"
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        name="dp"
+                        [(ngModel)]="customer.date_of_birthObj"
+                        ngbDatepicker
+                        #d1="ngbDatepicker"
+                        [disabled]="!canEdit"
+                    >
+                    <div class="input-group-append">
+                        <button
+                            class="btn btn-outline-secondary calendar"
+                            (click)="d1.toggle()"
+                            type="button"
+                            [disabled]="!canEdit"
+                        ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <label for="ssn">SSN:</label>
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="ssn"
+                    placeholder="123-12-1234"
+                    [disabled]="!canEdit"
+                    [(ngModel)]="customer.ssn"
+                >
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="email">Email:</label>
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    placeholder="email"
+                    [disabled]="!canEdit"
+                    [(ngModel)]="customer.email"
+                >
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic example"
+            >
+
+                <button
+                    type="button"
+                    class="btn btn-success"
+                    (click)="submit()"
+                    [disabled]="!canEdit"
+                    [hidden]="!canEdit"
+                >
+                    Submit
+                </button>
+            </div>
+        </div>
+        <div class="col-3">
+            <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic example"
+            >
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="delete()"
+                    [disabled]="!canEdit"
+                    [hidden]="!canEdit || isNewSubmission"
+                >
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</app-modal>
