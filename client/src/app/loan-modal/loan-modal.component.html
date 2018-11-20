@@ -45,7 +45,6 @@
                             (click)="$event.stopPropagation()"
                             (keyup)="filterCustomers($event)"
                         >
-                        {{values}}
                         <button
                             *ngFor="let fc of filteredCustomers"
                             class="dropdown-item"

@@ -18,6 +18,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoanModalComponent } from './loan-modal/loan-modal.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ModalComponent } from './modal/modal.component';
+import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 
 @NgModule({
 	declarations: [
@@ -28,7 +29,8 @@ import { ModalComponent } from './modal/modal.component';
 		PageNotFoundComponent,
 		LoanModalComponent,
 		HomePageComponent,
-		ModalComponent
+		ModalComponent,
+		CustomerModalComponent
 	],
 	imports: [
 		BrowserModule,

@@ -85,7 +85,6 @@ export class LoanPageComponent implements OnInit {
 	}
 
 	rowClickHandler(loan: any): void {
-		this.message = loan._id;
 		this.router.navigate([ `/loans/${loan._id}` ]);
 		this.openModal(loan._id);
 	}

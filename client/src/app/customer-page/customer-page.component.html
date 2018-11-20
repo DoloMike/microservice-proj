@@ -1,1 +1,24 @@
-<div style="margin-top:200px;">customer-page works!</div>
+<div
+    id="customer-table"
+    *ngIf="loaded"
+>
+    <div class="row">
+        <div class="col">
+            <button
+                type="button"
+                class="btn btn-primary"
+                (click)="addNew()"
+            >
+                Add New Customer
+            </button>
+
+        </div>
+    </div>
+
+    <br>
+    <table
+        datatable
+        [dtOptions]="dtOptions"
+        class="row-border hover"
+    ></table>
+</div>

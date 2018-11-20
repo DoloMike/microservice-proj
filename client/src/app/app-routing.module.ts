@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CustomerPageComponent } from './customer-page/customer-page.component';
+import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 import { LoanPageComponent } from './loan-page/loan-page.component';
 import { LoanModalComponent } from './loan-modal/loan-modal.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -21,7 +22,14 @@ const routes: Routes = [
 	},
 	{
 		path: 'customers',
-		component: CustomerPageComponent
+		component: CustomerPageComponent,
+		children: [
+			{
+				path: ':id',
+				component: CustomerModalComponent
+			}
+		],
+		runGuardsAndResolvers: 'always'
 	},
 	{ path: '**', component: PageNotFoundComponent }
 ];

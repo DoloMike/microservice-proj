@@ -120,7 +120,7 @@ module.exports = {
 
 		try {
 			let deletedCustomer = await customerModel.findByIdAndRemove(id);
-			return res.status(204).json(deletedCustomer);
+			return res.json(deletedCustomer);
 		} catch (err) {
 			return res.status(500).json({
 				message: 'Error when deleting the customer.',
