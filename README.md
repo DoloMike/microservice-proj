@@ -1,5 +1,5 @@
 # microservice-proj
-Tiny app using a basic implementation of microservice architecture, implemented in the MEAN stack. Could potentially be used as a template for simple CRUD functionality.
+Tiny app using a basic implementation of microservice architecture, implemented in the MEAN stack. Could potentially be used as a template for simple CRUD functionality. [A demo can be found here](https://desolate-coast-95140.herokuapp.com/)
 
 ## Installation
 ```bash
@@ -48,6 +48,6 @@ yarn start
 ```
 ```bash
 cd microservice-proj/client
-yarn start
+yarn startdev
 ```
 
