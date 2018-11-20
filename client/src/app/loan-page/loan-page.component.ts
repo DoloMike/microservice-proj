@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { LoanService } from './../services/loan.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Router, NavigationEnd } from '@angular/router';
+import { LoanModalComponent } from './../loan-modal/loan-modal.component';
+import { ModalComponent } from './../modal/modal.component';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-loan-page',
@@ -12,23 +15,31 @@ export class LoanPageComponent implements OnInit {
 	message = '';
 	dtOptions: DataTables.Settings = {};
 	columns: Array<Object> = [];
-
+	navigationSubscription;
 	loaded: boolean = false;
 
 	constructor(
 		private loanService: LoanService,
 		private spinnerService: Ng4LoadingSpinnerService,
-		private router: Router
+		private router: Router,
+		private modalService: NgbModal
 	) {
 		router.events.subscribe((val) => {
 			if (val instanceof NavigationEnd && val.url.split('/').length > 2) {
-				this.openModal(val.url);
+				const id = val.url.split('/')[2];
+				this.openModal(id);
+			} else if (val instanceof NavigationEnd && val.url.split('/').length === 2) {
+				this.loaded = false;
+				this.ngOnInit();
 			}
 		});
 	}
 
-	openModal(url) {
-		let id = url.split('/')[2];
+	openModal(id) {
+		if (!this.modalService.hasOpenModals()) {
+			const modalRef = this.modalService.open(LoanModalComponent, { centered: true });
+			modalRef.componentInstance.loanId = id;
+		}
 	}
 
 	buildDtOptions(loanData): void {
@@ -55,6 +66,8 @@ export class LoanPageComponent implements OnInit {
 
 	ngOnInit() {
 		this.spinnerService.show();
+		this.dtOptions = {};
+		this.columns = [];
 		this.loanService.getAllLoans().subscribe(
 			(loanData) => {
 				this.buildDtOptions(loanData);
@@ -67,8 +80,13 @@ export class LoanPageComponent implements OnInit {
 		);
 	}
 
+	addNew() {
+		this.router.navigate([ `/loans/new` ]);
+	}
+
 	rowClickHandler(loan: any): void {
 		this.message = loan._id;
 		this.router.navigate([ `/loans/${loan._id}` ]);
+		this.openModal(loan._id);
 	}
 }

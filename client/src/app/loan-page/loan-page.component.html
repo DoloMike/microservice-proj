@@ -2,10 +2,19 @@
     id="loan-table"
     *ngIf="loaded"
 >
-    <p class="text-danger">
-        You clicked on:
-        <strong>{{ message }}</strong>
-    </p>
+    <div class="row">
+        <div class="col">
+            <button
+                type="button"
+                class="btn btn-primary"
+                (click)="addNew()"
+            >
+                Add New Loan
+            </button>
+
+        </div>
+    </div>
+
     <br>
     <table
         datatable

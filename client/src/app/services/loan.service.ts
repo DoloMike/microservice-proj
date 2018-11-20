@@ -18,4 +18,16 @@ export class LoanService {
 	getLoan(id: string): Observable<any> {
 		return this.http.get(`${this.apiUrl}${id}`);
 	}
+
+	postNewLoan(loan: any): Observable<any> {
+		return this.http.post(`${this.apiUrl}`, loan);
+	}
+
+	updateLoan(loan: any): Observable<any> {
+		return this.http.put(`${this.apiUrl}${loan._id}`, loan);
+	}
+
+	deleteLoan(id: string): Observable<any> {
+		return this.http.delete(`${this.apiUrl}${id}`);
+	}
 }
